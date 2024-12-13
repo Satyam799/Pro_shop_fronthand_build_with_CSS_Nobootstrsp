@@ -27,10 +27,28 @@ const User=apiSlice.injectEndpoints({
         }),
         GetAllUsers:builder.query({
             query:()=>({
-                url:'/api/user/'
-            })
+                url:'/api/user/',
+                
+            }),
+            providesTags:['User']
+        }),
+        Updatetheuser:builder.mutation({
+            query:(data)=>({
+                url:`/api/user/useredit/${data?.id}`,
+                method:'PUT',
+                credentials:'include',
+                body:data
+            }),
+            invalidatesTags:['User']
+  
+        }),
+        userid:builder.query({
+            query:(id)=>({
+                url:`/api/user/admin/user/${id}`
+            }),
+            providesTags:['User'],
         })
     })
 })
 
-export const {useGetAllUsersQuery,useUpdateuserMutation,useSigninuserMutation,useLogginguseroutMutation}=User
+export const {useUseridQuery,useGetAllUsersQuery,useUpdateuserMutation,useSigninuserMutation,useLogginguseroutMutation,useUpdatetheuserMutation}=User

@@ -2,8 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllUsersQuery } from "../../Store/userslice";
 
 function AdminUser() {
-    const { data, isLoading, error } = useGetAllUsersQuery();
+    const { data, isLoading, error,refetch } = useGetAllUsersQuery();
     const navigate=useNavigate()
+
+    
+    
+    
     return (
       (isLoading ? <p>...Loading</p> :<div className="Mainscreen">
         <div className="arrangignbutton">

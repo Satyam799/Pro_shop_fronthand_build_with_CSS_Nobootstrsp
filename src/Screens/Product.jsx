@@ -9,7 +9,6 @@ import Loader from "../Component/Loader";
 function Product() {
   const id = useParams().id;
   const { data, isLoading, error } = useGetItembyidQuery(id);
-  console.log(data)
   const [qty, setqty] = useState(1);
 
   const navigate = useNavigate();
@@ -75,7 +74,7 @@ function Product() {
               ""
             )}
             <div className="but1">
-              <button onClick={handelcart}>Add Cart</button>
+              <button disabled={data.countInStock<=0 ? true :false} onClick={handelcart}>Add Cart</button>
             </div>
           </div>
         </div>

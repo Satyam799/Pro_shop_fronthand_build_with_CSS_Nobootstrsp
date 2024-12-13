@@ -1,15 +1,40 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  useUpdatetheuserMutation,
+  useUseridQuery,
+} from "../../Store/userslice";
+import { Userinfor } from "../../Store/createsliceuser";
 
 function Useredit() {
+  const [Updateid, { isLoading: userupdate, error: usererrorr }] =useUpdatetheuserMutation();
+  const { id } = useParams();
+  const dispatch=useDispatch()
+  const {userInfo}=useSelector(state=>state.User)
+  const { data, isLoading, error, refetch } = useUseridQuery(id);
 
-  const {userInfo}=useSelector(state=>state.User)  
+  useEffect(function(){
+    setemail(data?.email)
+    setname(data?.name)
+    setadmin(data?.isAdmin)
+  },[data])
 
-  const [email, setemail] = useState(userInfo.email);
-  const [name, setname] = useState(userInfo.name);
-  const [admin,setadmin]=useState(userInfo.isAdmin)
-  function handelsubmit(e) {
+
+  const [email, setemail] = useState();
+  const [name, setname] = useState();
+  const [admin, setadmin] = useState();
+  async function handelsubmit(e) {
     e.preventDefault();
+    try {
+      const data=await Updateid({ name, email, isAdmin: admin, id }).unwrap();
+      if(userInfo._id===data._id){
+        dispatch(Userinfor(data))
+      }
+      refetch();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -18,7 +43,7 @@ function Useredit() {
         <div className="inside">
           <h1>Edit Product</h1>
           <form onSubmit={handelsubmit}>
-          <div className="inputstyling">
+            <div className="inputstyling">
               <p>Name</p>
               <input
                 className="input"
@@ -28,7 +53,6 @@ function Useredit() {
                 onChange={(e) => setname(e.target.value)}
               />
             </div>
-
 
             <div className="inputstyling">
               <p>Email Address</p>
@@ -40,11 +64,14 @@ function Useredit() {
                 onChange={(e) => setemail(e.target.value)}
               />
             </div>
-            
-            <div className="inputstyling3">
-              <input type="checkbox"  value={admin} onChange={(e)=>setadmin(e.target.value)}/>
-              <label>isAdmin</label>
 
+            <div className="inputstyling3">
+              <input
+                type="checkbox"
+                checked={admin}
+                onChange={(e) => setadmin(e.target.checked)}
+              />
+              <label>isAdmin</label>
             </div>
             <div className="butsignin">
               <button>Update</button>

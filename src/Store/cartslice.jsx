@@ -32,8 +32,13 @@ const cartslice=apiSlice.injectEndpoints({
             credentials:'include',
             body:data
           })
+        }),
+        Searchproduct:builder.query({
+            query:(item)=>({
+              url:`/api/product/search/${item}`
+            })
         })
     })
 })
 
-export const {useImageMutation,useGetItemsQuery,useGetItembyidQuery,useUploadimageMutation}=cartslice
+export const {useSearchproductQuery,useImageMutation,useGetItemsQuery,useGetItembyidQuery,useUploadimageMutation}=cartslice

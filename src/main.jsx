@@ -21,6 +21,7 @@ import AdminUser from './Screens/Admin/AdminUser.jsx'
 import Admincheck from './Component/Admincheck.jsx'
 import EditProductAdmin from './Screens/Admin/EditProductAdmin.jsx'
 import Useredit from './Screens/Admin/Useredit.jsx'
+import Searchresults from './Component/Searchresults.jsx'
 
 const router=createBrowserRouter(createRoutesFromElements(
 <Route path='/' element={<App/>}> 
@@ -28,6 +29,8 @@ const router=createBrowserRouter(createRoutesFromElements(
   <Route path='/product/:id' element={<Product/>}/>
   <Route path='/cart' element={<Cart/>}/>
   <Route path='/login' element={<Login/>}/>
+  <Route path='/search/:item' element={<Searchresults/>}/>
+
   <Route path='' element={<Check/>}>
     <Route path='/shipping' element={<Shipping/>}/>
     <Route path='/payment' element={<Payment/>}/>

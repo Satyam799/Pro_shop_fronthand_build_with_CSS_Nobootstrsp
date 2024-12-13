@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { useGetAllordersQuery } from "../../Store/orderslice";
 
 function AdminOrder() {
     const { data, isLoading, error } =   useGetAllordersQuery();
+    const navigate=useNavigate()
   return (
     (isLoading ? <p>...Loading</p> :<div className="Mainscreen">
       <div className="arrangignbutton">
@@ -27,7 +29,7 @@ function AdminOrder() {
                 <td>{el.totalPrice}</td>
                 <td>{el.isPaid ? el.paidAt.split('T')[0] : 'false'}</td>
                 <td>{el.isDelivered ? el.deliveredAt.split('T')[0] : 'false'}</td>
-                <td><button>Details</button></td>
+                <td><button onClick={()=>navigate(`/orders/${el._id}`)}>Details</button></td>
 
             </tr>;
             })}

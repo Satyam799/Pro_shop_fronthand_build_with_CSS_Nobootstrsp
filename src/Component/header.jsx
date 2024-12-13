@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogginguseroutMutation } from "../Store/userslice";
 import { Clearuserinfo } from "../Store/createsliceuser";
+import { useSearchproductQuery } from "../Store/cartslice";
 
 function Header() {
   const navigate = useNavigate();
@@ -12,16 +13,25 @@ function Header() {
   const [colors, setcolors] = useState(true);
   const [dropdown,setdropdown]=useState(true)
   const [dropdown2,setdropdown2]=useState(true)
-
+  const [search,setsearch]=useState()
   const { userInfo } = useSelector((state) => state.User);
   const dispatch = useDispatch();
   const value1 = useRef(null);
   const value2 = useRef(null);
   const [logout, isLoading, error] = useLogginguseroutMutation();
 
+
   function handelfocuse(value) {
     value.current.focus();
+    if(search){
+      navigate(`/search/${search}`)
+    }
   }
+
+
+ 
+
+
 
   return (
     <div>
@@ -32,17 +42,19 @@ function Header() {
             <p>ProShop</p>
           </div>
           <div className={`headerin `}>
-            <div className="search">
+            <form className="search" onSubmit={handelfocuse}>
               <input
                 className="searchin"
                 type="text"
                 ref={value1}
                 placeholder="Search Product..."
+                onChange={(e)=>setsearch(e.target.value)}
               />
-              <button onClick={() => handelfocuse(value1)} className="butser">
+              <button onClick={() =>{
+                handelfocuse(value1)}} className="butser">
                 Search
               </button>
-            </div>
+            </form>
 
             <div className="collesablelogo">
               <FaAlignJustify
@@ -144,11 +156,29 @@ function Header() {
               </div>
               <div
                 className="hedingfull2 nav-icon "
-                onClick={() => navigate("/login")}
-              >
-                <div className="nav-icon hedingfull2">
+                onClick={()=>{
+                  setdropdown(!dropdown)
+                  setdropdown2(true)
+                  }}            >
                   {userInfo ? (
+                     <div className="nav-icon hedingfull2">
                     <a className="toggle ">{userInfo.name}</a>
+                    <div className={`dropdown3 ${dropdown ? 'hide2' :''} `}>
+                      <button onClick={() => navigate("/profile")}>
+                        Profile
+                      </button>
+                      <button
+                        onClick={async () => {
+                          await logout().unwrap();
+                          dispatch(Clearuserinfo());
+                          navigate("/");
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                    </div>
+
                   ) : (
                     <>
                       <FaUser size={15} />
@@ -156,14 +186,28 @@ function Header() {
                     </>
                   )}
                 </div>
-              </div>
               <div
                 className="hedingfull2 nav-icon "
-                onClick={() => navigate("/login")}
+                onClick={()=>{
+                  setdropdown2(!dropdown2)
+                  setdropdown(true)
+
+                  }}
               >
                 {userInfo?.isAdmin ? (
                   <div className="nav-icon hedingfull2">
                     <a className="toggle ">Admin</a>
+                    <div className={`hedingfull2 dropdown3 ${dropdown2 ? 'hide2' :''} `}>
+                  <button onClick={()=>navigate('/admin/product')}>
+                    Product
+                  </button>
+                  <button onClick={()=>navigate('/admin/User')}>
+                    User
+                  </button>
+                  <button onClick={()=>navigate('/admin/Order')}>
+                    Order
+                  </button>
+                </div>
                   </div>
                 ) : (
                   ""

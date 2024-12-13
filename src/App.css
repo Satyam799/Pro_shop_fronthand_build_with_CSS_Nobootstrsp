@@ -407,32 +407,7 @@
   }
 }
 
-@media (max-width: 500px) {
-  .cart {
-    width: 250px;
-    grid-template-columns: 1fr;
-  }
-  .box2 {
-    height: auto;
-    width: auto;
-  }
-  .cartinline {
-    display: grid;
-    grid-template-rows: 1fr auto auto auto;
-    gap: 2px;
-  }
-  .cartimg {
-    width: 100%;
-    height: auto;
-  }
-  .link {
-    width: 100%;
-  }
-}
 
-.latest {
-  color: rgba(123, 138, 139, 1);
-}
 
 .hedingfull {
   display: flex;
@@ -451,6 +426,7 @@
   }
   .hedingfull2{
     display: flex;
+    flex-direction: column;
     width: auto;
     gap: 5px;
   }
@@ -870,38 +846,8 @@
 }
 
 
-@media (max-width: 768px) {
-  .Mainscreen {
-    max-width: 400px;
-  }
 
-  .innerheader {
-    max-width: 400px;
 
-  }
-
-  .cards {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .search{
-    display: none;
-  }
-
-}
-
-@media (max-width: 576px) {
-  .Mainscreen {
-    max-width: 240px;
-  }
-  .innerheader {
-    max-width: 220px;
-
-  }
-  .cards {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-}
 
 .headerinleft{
   display: flex;
@@ -1039,9 +985,9 @@
   bottom: -70px;
 }
 
-.hide2{
-  display: none;
-}
+
+
+
 
 .table{
   width: 100%;
@@ -1081,4 +1027,82 @@
   color: rgba(123, 138, 139, 1);
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .Mainscreen {
+    max-width: 400px;
+  }
+
+  .innerheader {
+    max-width: 400px;
+
+  }
+
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .search{
+    display: none;
+  }
+  .main2{
+    display: none;
+  }
+}
+
+.dropdown3{
+  background-color: #fadbd8;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  bottom: -70px;
+  padding: 0 20px;
+  border-radius: 5px ;
+}
+
+.hide2{
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .cart {
+    width: 250px;
+    grid-template-columns: 1fr;
+  }
+  .box2 {
+    height: auto;
+    width: auto;
+  }
+  .cartinline {
+    display: grid;
+    grid-template-rows: 1fr auto auto auto;
+    gap: 2px;
+  }
+  .cartimg {
+    width: 100%;
+    height: auto;
+  }
+  .link {
+    width: 100%;
+  }
+}
+
+.latest {
+  color: rgba(123, 138, 139, 1);
+}
+
+@media (max-width: 576px) {
+  .Mainscreen {
+    max-width: 240px;
+  }
+  .innerheader {
+    max-width: 220px;
+
+  }
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
 }

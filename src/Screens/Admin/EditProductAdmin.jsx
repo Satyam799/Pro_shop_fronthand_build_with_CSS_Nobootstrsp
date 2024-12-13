@@ -5,12 +5,12 @@ import {
   useUploadimageMutation,
 } from "../../Store/cartslice";
 import { useEffect, useState } from "react";
+import { useUpdatetheuserMutation } from "../../Store/userslice";
 
 function EditProductAdmin() {
   const { id } = useParams();
 
   const { data, isLoading, error, refetch } = useGetItembyidQuery(id);
-
   const [name, setname] = useState();
   const [price, setprice] = useState();
   const [brand, setbrand] = useState();
